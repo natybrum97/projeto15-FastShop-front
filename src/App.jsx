@@ -15,11 +15,12 @@ export default function App() {
       <BrowserRouter>
         <LoginProvider>
           <Routes>
-            <Route path="/" element={<Login />} />
-            {/* <Route path="/cadastro" element={<Cadastro />} />
+            {/*<Route path="/" element={<Login />} />
+             <Route path="/cadastro" element={<Cadastro />} />
           <Route path="/catalogo" element={<Catalogo />} />
-          <Route path="/carrinho" element={<Carrinho />} />
-  <Route path="/checkpoint" element={<Checkout />} /> */}
+          <Route path="/item/:id" element={<Item />} />
+          <Route path="/carrinho" element={<Carrinho />} />*/}
+  <Route path="/checkout" element={<Checkout />} /> 
           </Routes>
         </LoginProvider>
       </BrowserRouter>

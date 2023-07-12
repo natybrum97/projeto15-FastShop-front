@@ -1,0 +1,78 @@
+import styled from "styled-components";
+import imageCarrinho from "../assets/carrinho-de-compras.png";
+
+export default function Cabeçalho() {
+    return (
+        <PageContainerTopo>
+
+            <MessageUser>Bem-vindo(a) Nathália! </MessageUser>
+            <LogoFastShop>Fast<span>Shop</span></LogoFastShop>
+            <ContainerCarrinho>
+                <CarrinhoImage src={imageCarrinho} alt="Carrinho de Compras" />
+                <QuantidadeCarrinho>1</QuantidadeCarrinho>
+            </ContainerCarrinho>
+
+
+        </PageContainerTopo>
+
+    )
+}
+
+const PageContainerTopo = styled.div`
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    height: 120px;
+    background-color: #212121;
+    width:100%;
+    box-shadow: 0px 4px 4px 0px #00000026;
+    position: fixed;
+    top: 0;
+    left:0;
+`
+const LogoFastShop = styled.h1`
+    font-family: 'Roboto', cursive;
+    font-weight: 800;
+    font-size: 40px;
+    color: white;
+    margin-right:150px;
+
+    span{
+        color:#f87b09;
+    }
+`
+
+const MessageUser = styled.h1`
+    font-family: 'Roboto', cursive;
+    font-weight: 400;
+    font-size: 23px;
+    color: white;
+    margin-left:60px;
+`
+const CarrinhoImage = styled.img`
+  width: 40px;
+  height: 40px;
+  margin-right:5px;
+`;
+
+const QuantidadeCarrinho = styled.div`
+  font-family: 'Roboto', cursive;
+  font-weight: 400;
+  font-size: 16px;
+  color: white;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ContainerCarrinho = styled.div`
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    margin-right:60px;
+`
+

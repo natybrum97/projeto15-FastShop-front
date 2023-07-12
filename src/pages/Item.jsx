@@ -4,7 +4,7 @@ import { useContext, useEffect } from "react";
 import axios from "axios";
 import Cabeçalho from "../components/Cabeçalho";
 
-export default function Catalogo() {
+export default function Item() {
 
   return (
     <>
