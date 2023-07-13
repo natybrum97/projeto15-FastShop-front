@@ -8,11 +8,15 @@ export function LoginProvider({ children }) {
 
     const navigate = useNavigate();
 
+    const [listadeProdutos, setListadeProdutos] = useState([]);
+    const [token, setToken] = useState("");
+
 const isLoged = () => {
     let token = localStorage.getItem("token");
 
     if(token){
         axios.defaults.headers.common['Authorization'] = token;
+        setToken(token);
     } else {
         navigate("/");
     }
@@ -26,7 +30,7 @@ const logout = () => {
 }
 
     return (
-        <LoginContext.Provider value={{isLoged, logout}}>
+        <LoginContext.Provider value={{isLoged, logout, listadeProdutos, setListadeProdutos,token, setToken}}>
             {children}
         </LoginContext.Provider>
     )

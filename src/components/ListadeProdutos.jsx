@@ -1,29 +1,38 @@
 import styled from "styled-components";
+import axios from "axios";
+import { useContext, useEffect } from "react";
+import { LoginContext } from "../contexts/LoginContext";
 
 export default function ListadeProdutos() {
 
-    const listProductsArray = [
-        {url: "https://lojamultilaser.vtexassets.com/arquivos/ids/959052-800-auto?v=638246694249000000&width=800&height=auto&aspect=true", nome: "SmartPhone Multilaser", description: "Smartphone Multi H 5G 256GB Full HD 8GB RAM Câmera Tripla 50MP Android 12 Preto - P9180", categoria: "SmartPhone", valor: "1000.00", _id:"1"},
-        {url: "https://lojamultilaser.vtexassets.com/arquivos/ids/959052-800-auto?v=638246694249000000&width=800&height=auto&aspect=true", nome: "SmartPhone Multilaser", description: "Smartphone Multi H 5G 256GB Full HD 8GB RAM Câmera Tripla 50MP Android 12 Preto - P9180", categoria: "SmartPhone", valor: "1000.00", _id:"2"},
-        {url: "https://lojamultilaser.vtexassets.com/arquivos/ids/959052-800-auto?v=638246694249000000&width=800&height=auto&aspect=true", nome: "SmartPhone Multilaser", description: "Smartphone Multi H 5G 256GB Full HD 8GB RAM Câmera Tripla 50MP Android 12 Preto - P9180", categoria: "SmartPhone", valor: "1000.00", _id:"3"},
-        {url: "https://lojamultilaser.vtexassets.com/arquivos/ids/959052-800-auto?v=638246694249000000&width=800&height=auto&aspect=true", nome: "SmartPhone Multilaser", description: "Smartphone Multi H 5G 256GB Full HD 8GB RAM Câmera Tripla 50MP Android 12 Preto - P9180", categoria: "SmartPhone", valor: "1000.00", _id:"4"},
-        {url: "https://lojamultilaser.vtexassets.com/arquivos/ids/959052-800-auto?v=638246694249000000&width=800&height=auto&aspect=true", nome: "SmartPhone Multilaser", description: "Smartphone Multi H 5G 256GB Full HD 8GB RAM Câmera Tripla 50MP Android 12 Preto - P9180", categoria: "SmartPhone", valor: "1000.00", _id:"5"},
-        {url: "https://lojamultilaser.vtexassets.com/arquivos/ids/959052-800-auto?v=638246694249000000&width=800&height=auto&aspect=true", nome: "SmartPhone Multilaser", description: "Smartphone Multi H 5G 256GB Full HD 8GB RAM Câmera Tripla 50MP Android 12 Preto - P9180", categoria: "SmartPhone", valor: "1000.00", _id:"6"},
-        {url: "https://lojamultilaser.vtexassets.com/arquivos/ids/959052-800-auto?v=638246694249000000&width=800&height=auto&aspect=true", nome: "SmartPhone Multilaser", description: "Smartphone Multi H 5G 256GB Full HD 8GB RAM Câmera Tripla 50MP Android 12 Preto - P9180", categoria: "SmartPhone", valor: "1000.00", _id:"7"},
-        {url: "https://lojamultilaser.vtexassets.com/arquivos/ids/959052-800-auto?v=638246694249000000&width=800&height=auto&aspect=true", nome: "SmartPhone Multilaser", description: "Smartphone Multi H 5G 256GB Full HD 8GB RAM Câmera Tripla 50MP Android 12 Preto - P9180", categoria: "SmartPhone", valor: "1000.00", _id:"8"},
-        {url: "https://lojamultilaser.vtexassets.com/arquivos/ids/959052-800-auto?v=638246694249000000&width=800&height=auto&aspect=true", nome: "SmartPhone Multilaser", description: "Smartphone Multi H 5G 256GB Full HD 8GB RAM Câmera Tripla 50MP Android 12 Preto - P9180", categoria: "SmartPhone", valor: "1000.00", _id:"9"},
-        {url: "https://lojamultilaser.vtexassets.com/arquivos/ids/959052-800-auto?v=638246694249000000&width=800&height=auto&aspect=true", nome: "SmartPhone Multilaser", description: "Smartphone Multi H 5G 256GB Full HD 8GB RAM Câmera Tripla 50MP Android 12 Preto - P9180", categoria: "SmartPhone", valor: "1000.00", _id:"10"},
-        {url: "https://lojamultilaser.vtexassets.com/arquivos/ids/959052-800-auto?v=638246694249000000&width=800&height=auto&aspect=true", nome: "SmartPhone Multilaser", description: "Smartphone Multi H 5G 256GB Full HD 8GB RAM Câmera Tripla 50MP Android 12 Preto - P9180", categoria: "SmartPhone", valor: "1000.00", _id:"11"},
-        {url: "https://lojamultilaser.vtexassets.com/arquivos/ids/959052-800-auto?v=638246694249000000&width=800&height=auto&aspect=true", nome: "SmartPhone Multilaser", description: "Smartphone Multi H 5G 256GB Full HD 8GB RAM Câmera Tripla 50MP Android 12 Preto - P9180", categoria: "SmartPhone", valor: "1000.00", _id:"12"},
-        {url: "https://lojamultilaser.vtexassets.com/arquivos/ids/959052-800-auto?v=638246694249000000&width=800&height=auto&aspect=true", nome: "SmartPhone Multilaser", description: "Smartphone Multi H 5G 256GB Full HD 8GB RAM Câmera Tripla 50MP Android 12 Preto - P9180", categoria: "SmartPhone", valor: "1000.00", _id:"13"},
-        {url: "https://lojamultilaser.vtexassets.com/arquivos/ids/959052-800-auto?v=638246694249000000&width=800&height=auto&aspect=true", nome: "SmartPhone Multilaser", description: "Smartphone Multi H 5G 256GB Full HD 8GB RAM Câmera Tripla 50MP Android 12 Preto - P9180", categoria: "SmartPhone", valor: "1000.00", _id:"14"},
-        {url: "https://lojamultilaser.vtexassets.com/arquivos/ids/959052-800-auto?v=638246694249000000&width=800&height=auto&aspect=true", nome: "SmartPhone Multilaser", description: "Smartphone Multi H 5G 256GB Full HD 8GB RAM Câmera Tripla 50MP Android 12 Preto - P9180", categoria: "SmartPhone", valor: "1000.00", _id:"15"},
-        {url: "https://lojamultilaser.vtexassets.com/arquivos/ids/959052-800-auto?v=638246694249000000&width=800&height=auto&aspect=true", nome: "SmartPhone Multilaser", description: "Smartphone Multi H 5G 256GB Full HD 8GB RAM Câmera Tripla 50MP Android 12 Preto - P9180", categoria: "SmartPhone", valor: "1000.00", _id:"16"}
-    ];
+  const {listadeProdutos, setListadeProdutos, isLoged } = useContext(LoginContext);
+
+  useEffect(() => {
+    isLoged();
+  })
+
+  useEffect(() => {
+
+    const promise = axios.get(`${import.meta.env.VITE_API_URL}/catalogo`);
+
+    promise.then((resposta) => {
+
+      setListadeProdutos(resposta.data);
+      console.log(resposta.data, "lista");
+
+    })
+
+    promise.catch((erro) => {
+
+      console.log(erro.response.data);
+
+    })
+
+  }, []);
 
     return (
         <ListagemdeProdutos>
-        {listProductsArray.map((produto) => (
+        {listadeProdutos.map((produto) => (
 
           <ListItemContainer key={produto._id}>
             <ProductImage src={produto.url} alt="SmartPhone" />
