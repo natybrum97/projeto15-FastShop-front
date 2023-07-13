@@ -1,15 +1,24 @@
 import styled from "styled-components";
 import imageCarrinho from "../assets/carrinho-de-compras.png";
+import imageLogout from "../assets/logout.png"
+import { useContext } from "react";
+import { LoginContext } from "../contexts/LoginContext";
 
 export default function Cabeçalho() {
+
+    const { logout } = useContext(LoginContext);
     return (
         <PageContainerTopo>
 
-            <MessageUser>Bem-vindo(a) Nathália! </MessageUser>
+            <MessageUser>Bem-vindo(a) {localStorage.getItem("user")}! </MessageUser>
             <LogoFastShop>Fast<span>Shop</span></LogoFastShop>
             <ContainerCarrinho>
-                <CarrinhoImage src={imageCarrinho} alt="Carrinho de Compras" />
-                <QuantidadeCarrinho>1</QuantidadeCarrinho>
+                <CarrinhoeContagem>
+                    <CarrinhoImage src={imageCarrinho} alt="Carrinho de Compras" />
+                    <QuantidadeCarrinho>1</QuantidadeCarrinho>
+                </CarrinhoeContagem>
+
+                <LogoutImage src={imageLogout} alt="Logout" onClick={() => logout()} />
             </ContainerCarrinho>
 
 
@@ -35,7 +44,6 @@ const LogoFastShop = styled.h1`
     font-weight: 800;
     font-size: 40px;
     color: white;
-    margin-right:150px;
 
     span{
         color:#f87b09;
@@ -53,6 +61,12 @@ const CarrinhoImage = styled.img`
   width: 40px;
   height: 40px;
   margin-right:5px;
+  cursor: pointer;
+`;
+const LogoutImage = styled.img`
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
 `;
 
 const QuantidadeCarrinho = styled.div`
@@ -71,8 +85,13 @@ const QuantidadeCarrinho = styled.div`
 
 const ContainerCarrinho = styled.div`
     display: flex;
-    justify-content:center;
+    justify-content:space-around;
     align-items: center;
     margin-right:60px;
 `
-
+const CarrinhoeContagem = styled.div`
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    width: 200px;
+`

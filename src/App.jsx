@@ -15,12 +15,12 @@ export default function App() {
       <BrowserRouter>
         <LoginProvider>
           <Routes>
-            {/*<Route path="/" element={<Login />} />
-             <Route path="/cadastro" element={<Cadastro />} />
-          <Route path="/catalogo" element={<Catalogo />} />
-          <Route path="/item/:id" element={<Item />} />
-          <Route path="/carrinho" element={<Carrinho />} />*/}
-  <Route path="/checkout" element={<Checkout />} /> 
+            <Route path="/" element={<Login />} />
+            <Route path="/cadastro" element={<Cadastro />} />
+            <Route path="/catalogo" element={<Catalogo />} />
+            {/*<Route path="/item/:id" element={<Item />} />
+            <Route path="/carrinho" element={<Carrinho />} />
+            <Route path="/checkout" element={<Checkout />} />*/}
           </Routes>
         </LoginProvider>
       </BrowserRouter>
@@ -30,7 +30,6 @@ export default function App() {
 
 
 const PagesContainer = styled.main`
-  width: calc(100vw - 50px);
+  width: 100%;
   max-height: 100vh;
-  padding: 25px;
 `
