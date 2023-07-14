@@ -32,7 +32,7 @@ const logout = () => {
 }
 
     return (
-        <LoginContext.Provider value={{isLoged, logout, listadeProdutos, setListadeProdutos,token, setToken, listadeProdutosPorCategoria, setListadeProdutosPorCategoria}}>
+        <LoginContext.Provider value={{carrinho, setCarrinho, isLoged, logout, listadeProdutos, setListadeProdutos,token, setToken, listadeProdutosPorCategoria, setListadeProdutosPorCategoria}}>
             {children}
         </LoginContext.Provider>
     )
