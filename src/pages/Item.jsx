@@ -7,9 +7,11 @@ import { LoginContext } from "../contexts/LoginContext";
 
 export default function Item() {
   const navigate = useNavigate();
-  const { isLoged,carrinho, setCarrinho } = useContext(LoginContext);
+  const { isLoged,carrinho, setCarrinho,produto, setProduto } = useContext(LoginContext);
   const {id} = useParams();
-  const [produto, setProduto] = useState({valor:""});
+
+  console.log(produto, "aqui")
+  
   let [quantidade, setQuantidade] = useState(0);
 
   function menosQuant(){
@@ -21,11 +23,7 @@ export default function Item() {
     setQuantidade(novaQuantidade)
   }
   function addCart(){
-    const cart = carrinho;
-    if(cart.includes(produto)) return
-    cart.push(produto);
-    setCarrinho(cart);
-    console.log(cart)
+    setProduto([]);
     navigate("/catalogo")
   }
 
@@ -33,8 +31,7 @@ export default function Item() {
     isLoged();
     const promise = axios.get(`${import.meta.env.VITE_API_URL}/produtos/${id}`);
     promise.then((resposta) => {
-      setProduto(resposta.data)
-      console.log(resposta.data)
+      setProduto([resposta.data]);
 
     })
 
@@ -45,7 +42,9 @@ export default function Item() {
   return (
     <SCItemPag>
       <Cabeçalho />
-      <SCItemContainer>
+
+      {produto?.map((produto) => (
+      <SCItemContainer  key={produto._id}>
         <img src={produto.url}/>
         <SCItemMenu>
           <SCNomeItem>{produto.nome}</SCNomeItem>
@@ -57,10 +56,15 @@ export default function Item() {
             </SCQuantidadeContainer>
           </SCValorQuantContainer>
           <SCFinalizarContainer>
-            <SCFinalizarButton onClick={addCart}>Adicionar ao carrinho</SCFinalizarButton><SCFinalizarButton onClick={()=>navigate("/catalogo")}>Voltar</SCFinalizarButton>
+          <SCFinalizarButton onClick={() => addCart(produto.nome, produto.description, produto.valor)}>Adicionar ao carrinho</SCFinalizarButton>
+            <SCFinalizarButton onClick={()=>{
+              navigate("/catalogo")
+              setProduto([])}}>Voltar</SCFinalizarButton>
           </SCFinalizarContainer>
         </SCItemMenu>
       </SCItemContainer>
+      )
+      )}
     </SCItemPag>
   )
 }
