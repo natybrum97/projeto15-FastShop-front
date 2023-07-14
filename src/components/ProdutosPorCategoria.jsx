@@ -1,38 +1,19 @@
 import styled from "styled-components";
-import axios from "axios";
 import { useContext, useEffect } from "react";
 import { LoginContext } from "../contexts/LoginContext";
 
-export default function ListadeProdutos() {
+export default function ProdutosPorCategoria() {
 
-  const {listadeProdutos, setListadeProdutos, isLoged } = useContext(LoginContext);
+  const {listadeProdutosPorCategoria, isLoged } = useContext(LoginContext);
 
   useEffect(() => {
     isLoged();
   })
 
-  useEffect(() => {
-
-    const promise = axios.get(`${import.meta.env.VITE_API_URL}/catalogo`);
-
-    promise.then((resposta) => {
-
-      setListadeProdutos(resposta.data);
-      console.log(resposta.data, "lista");
-
-    })
-
-    promise.catch((erro) => {
-
-      console.log(erro.response.data);
-
-    })
-
-  }, []);
 
     return (
         <ListagemdeProdutos>
-        {listadeProdutos.map((produto) => (
+        {listadeProdutosPorCategoria.map((produto) => (
 
           <ListItemContainer key={produto._id}>
             <ProductImage src={produto.url} alt="SmartPhone" />

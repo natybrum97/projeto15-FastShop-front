@@ -3,13 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import axios from "axios";
 import Cabeçalho from "../components/Cabeçalho";
-import ListadeProdutos from "../components/ListadeProdutos";
 import { LoginContext } from "../contexts/LoginContext";
 import FiltroPorCategoria from "../components/FiltroPorCategoria";
+import ProdutosPorCategoria from "../components/ProdutosPorCategoria";
 
-export default function Catalogo() {
+export default function CatalogoPorCategoria() {
 
-  const { isLoged, logout } = useContext(LoginContext);
+  const { isLoged } = useContext(LoginContext);
 
   useEffect(() => {
     isLoged();
@@ -22,7 +22,7 @@ export default function Catalogo() {
 
       <FiltroPorCategoria />
 
-      <ListadeProdutos />
+      <ProdutosPorCategoria />
 
     </ContainerGrandeProdutos>
   )

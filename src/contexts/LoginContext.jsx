@@ -9,6 +9,7 @@ export function LoginProvider({ children }) {
     const navigate = useNavigate();
 
     const [listadeProdutos, setListadeProdutos] = useState([]);
+    const [listadeProdutosPorCategoria, setListadeProdutosPorCategoria] = useState([]);
     const [token, setToken] = useState("");
 
 const isLoged = () => {
@@ -30,7 +31,7 @@ const logout = () => {
 }
 
     return (
-        <LoginContext.Provider value={{isLoged, logout, listadeProdutos, setListadeProdutos,token, setToken}}>
+        <LoginContext.Provider value={{isLoged, logout, listadeProdutos, setListadeProdutos,token, setToken, listadeProdutosPorCategoria, setListadeProdutosPorCategoria}}>
             {children}
         </LoginContext.Provider>
     )
