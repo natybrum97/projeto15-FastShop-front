@@ -6,6 +6,7 @@ import Catalogo from "./pages/Catalogo";
 import Login from "./pages/Login"
 import Checkout from "./pages/Checkout";
 import { LoginProvider } from "./contexts/LoginContext.jsx";
+import CatalogoPorCategoria from "./pages/CatalogoPorCategoria";
 
 export default function App() {
 
@@ -18,6 +19,7 @@ export default function App() {
             <Route path="/" element={<Login />} />
             <Route path="/cadastro" element={<Cadastro />} />
             <Route path="/catalogo" element={<Catalogo />} />
+            <Route path="/produtos/categoria/:categoria" element={<CatalogoPorCategoria />} />
             {/*<Route path="/item/:id" element={<Item />} />
             <Route path="/carrinho" element={<Carrinho />} />
             <Route path="/checkout" element={<Checkout />} />*/}
