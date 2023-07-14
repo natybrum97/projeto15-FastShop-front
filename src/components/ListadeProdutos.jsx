@@ -2,17 +2,14 @@ import styled from "styled-components";
 import axios from "axios";
 import { useContext, useEffect } from "react";
 import { LoginContext } from "../contexts/LoginContext";
+import { useNavigate } from "react-router-dom";
 
 export default function ListadeProdutos() {
-
+  const navigate = useNavigate()
   const {listadeProdutos, setListadeProdutos, isLoged } = useContext(LoginContext);
 
   useEffect(() => {
     isLoged();
-  })
-
-  useEffect(() => {
-
     const promise = axios.get(`${import.meta.env.VITE_API_URL}/catalogo`);
 
     promise.then((resposta) => {
@@ -34,7 +31,7 @@ export default function ListadeProdutos() {
         <ListagemdeProdutos>
         {listadeProdutos.map((produto) => (
 
-          <ListItemContainer key={produto._id}>
+          <ListItemContainer key={produto._id} onClick={() => navigate(`/item/${produto._id}`)}>
             <ProductImage src={produto.url} alt="SmartPhone" />
             <ProductName>{produto.nome}</ProductName>
             <ProductValor>R${produto.valor.replace(/\./g, ',')}</ProductValor>
