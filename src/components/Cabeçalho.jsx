@@ -3,22 +3,76 @@ import imageCarrinho from "../assets/carrinho-de-compras.png";
 import imageLogout from "../assets/logout.png"
 import { useContext } from "react";
 import { LoginContext } from "../contexts/LoginContext";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useEffect } from "react";
 
 export default function Cabeçalho() {
 
-    const { logout } = useContext(LoginContext);
+    const navigate = useNavigate();
+
+    const { isLoged, valorCarrinho, setValorCarrinho, logout, setGetCarrinho } = useContext(LoginContext);
+
+    useEffect(() => {
+        isLoged();
+      })
+
+    function irParaCarrinho(){
+
+        axios.get(`${import.meta.env.VITE_API_URL}/carrinho`)
+  
+          .then((response) => {
+  
+            console.log(response.data, "essa é a resposta certa");
+            setGetCarrinho(response.data);
+            navigate("/carrinho");
+            
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+    };
+
+    useEffect(() => {
+
+        axios.get(`${import.meta.env.VITE_API_URL}/carrinho`)
+
+          .then((response) => {
+
+            const carrinhodecompras = response.data;
+            console.log(carrinhodecompras.length, "opaaaaaa");
+            setValorCarrinho(carrinhodecompras.length);
+
+          })
+
+          .catch((error) => {
+
+            console.error(error);
+
+          });
+
+      }, []);
+      
+
+   
     return (
         <PageContainerTopo>
 
             <MessageUser>Bem-vindo(a) {localStorage.getItem("user")}! </MessageUser>
+
             <LogoFastShop>Fast<span>Shop</span></LogoFastShop>
+
             <ContainerCarrinho>
+
                 <CarrinhoeContagem>
-                    <CarrinhoImage src={imageCarrinho} alt="Carrinho de Compras" />
-                    <QuantidadeCarrinho>1</QuantidadeCarrinho>
+
+                    <CarrinhoImage src={imageCarrinho} onClick={() => irParaCarrinho()} alt="Carrinho de Compras" />
+                    <QuantidadeCarrinho>{valorCarrinho}</QuantidadeCarrinho>
+
                 </CarrinhoeContagem>
 
                 <LogoutImage src={imageLogout} alt="Logout" onClick={() => logout()} />
+
             </ContainerCarrinho>
 
 

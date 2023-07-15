@@ -2,6 +2,7 @@ import styled from "styled-components"
 
 export default function FastShopLogo() {
     return (
+        
         <PageContainerTopo>
 
             <LogoFastShop>Fast<span>Shop</span></LogoFastShop>
