@@ -22,8 +22,8 @@ export default function App() {
             <Route path="/catalogo" element={<Catalogo />} />
             <Route path="/produtos/categoria/:categoria" element={<CatalogoPorCategoria />} />
             <Route path="/item/:id" element={<Item />} />
-            {/*<Route path="/carrinho" element={<Carrinho />} />
-            <Route path="/checkout" element={<Checkout />} />*/}
+            <Route path="/carrinho" element={<Carrinho />} />
+            {/*<Route path="/checkout" element={<Checkout />} />*/}
           </Routes>
         </LoginProvider>
       </BrowserRouter>

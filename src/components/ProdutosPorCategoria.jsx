@@ -1,8 +1,11 @@
 import styled from "styled-components";
 import { useContext, useEffect } from "react";
 import { LoginContext } from "../contexts/LoginContext";
+import { useNavigate } from "react-router-dom";
 
 export default function ProdutosPorCategoria() {
+
+  const navigate = useNavigate();
 
   const {listadeProdutosPorCategoria, isLoged } = useContext(LoginContext);
 
@@ -15,7 +18,7 @@ export default function ProdutosPorCategoria() {
         <ListagemdeProdutos>
         {listadeProdutosPorCategoria.map((produto) => (
 
-          <ListItemContainer key={produto._id}>
+          <ListItemContainer key={produto._id} onClick={() => navigate(`/item/${produto._id}`)}>
             <ProductImage src={produto.url} alt="SmartPhone" />
             <ProductName>{produto.nome}</ProductName>
             <ProductValor>R${produto.valor.replace(/\./g, ',')}</ProductValor>
