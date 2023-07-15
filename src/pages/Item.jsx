@@ -6,24 +6,59 @@ import Cabeçalho from "../components/Cabeçalho";
 import { LoginContext } from "../contexts/LoginContext";
 
 export default function Item() {
+
   const navigate = useNavigate();
+
   const { isLoged,carrinho, setCarrinho,produto, setProduto } = useContext(LoginContext);
+
   const {id} = useParams();
 
-  console.log(produto, "aqui")
+  console.log(produto, "aqui");
   
   let [quantidade, setQuantidade] = useState(0);
 
   function menosQuant(){
-    const novaQuantidade = quantidade - 1
-    if(novaQuantidade >= 0)setQuantidade(novaQuantidade) 
+
+    const novaQuantidade = quantidade - 1;
+
+    if(novaQuantidade >= 0)setQuantidade(novaQuantidade);
+
   }
   function maisQuant(){
-    const novaQuantidade = quantidade + 1
-    setQuantidade(novaQuantidade)
+
+    const novaQuantidade = quantidade + 1;
+
+    setQuantidade(novaQuantidade);
+
   }
+
   function addCart(){
-    navigate("/catalogo")
+
+    const obj = {
+      categoria: carrinho.categoria,
+      description: carrinho.description,
+      nome: carrinho.nome,
+      url: carrinho.url,
+      valor:carrinho.valor,
+      quantidade: quantidade
+    }
+
+      const promise = axios.post(`${import.meta.env.VITE_API_URL}/carrinho`, obj);
+  
+      promise.then(resposta => {
+  
+        alert('Esse produto foi adicionado em seu carrinho com sucesso!')
+        console.log(resposta.data);
+        navigate("/catalogo");
+  
+      });
+  
+      promise.catch(erro => {
+      
+        console.log(erro.response.data);
+        alert(erro.response.data.message || erro.response.data);
+  
+      });
   }
 
   useEffect(() => {
@@ -31,6 +66,7 @@ export default function Item() {
     const promise = axios.get(`${import.meta.env.VITE_API_URL}/produtos/${id}`);
     promise.then((resposta) => {
       setProduto([resposta.data]);
+      setCarrinho(resposta.data);
 
     })
 
@@ -55,7 +91,7 @@ export default function Item() {
             </SCQuantidadeContainer>
           </SCValorQuantContainer>
           <SCFinalizarContainer>
-          <SCFinalizarButton onClick={() => addCart(produto.nome, produto.description, produto.valor)}>Adicionar ao carrinho</SCFinalizarButton>
+          <SCFinalizarButton onClick={() => addCart()}>Adicionar ao carrinho</SCFinalizarButton>
             <SCFinalizarButton onClick={()=>{
               navigate("/catalogo")
              }}>Voltar</SCFinalizarButton>
