@@ -23,7 +23,6 @@ export default function Item() {
     setQuantidade(novaQuantidade)
   }
   function addCart(){
-    setProduto([]);
     navigate("/catalogo")
   }
 
@@ -52,14 +51,14 @@ export default function Item() {
           <SCValorQuantContainer>
             <SCValorItem>R$ {produto.valor.replace(".",",")}</SCValorItem>
             <SCQuantidadeContainer>
-              Qtd:<SCQuantButton onClick={menosQuant}>-</SCQuantButton> {quantidade} <SCQuantButton onClick={maisQuant}>+</SCQuantButton>
+              <SCQuantButton onClick={menosQuant}>-</SCQuantButton> {quantidade} <SCQuantButton onClick={maisQuant}>+</SCQuantButton>
             </SCQuantidadeContainer>
           </SCValorQuantContainer>
           <SCFinalizarContainer>
           <SCFinalizarButton onClick={() => addCart(produto.nome, produto.description, produto.valor)}>Adicionar ao carrinho</SCFinalizarButton>
             <SCFinalizarButton onClick={()=>{
               navigate("/catalogo")
-              setProduto([])}}>Voltar</SCFinalizarButton>
+             }}>Voltar</SCFinalizarButton>
           </SCFinalizarContainer>
         </SCItemMenu>
       </SCItemContainer>
@@ -102,7 +101,7 @@ const SCItemMenu = styled.div`
 `
 const SCNomeItem = styled.p`
   font-weight:700;
-  font-size:50px;
+  font-size:40px;
   color:black;
 `
 const SCDescItem = styled.p`
@@ -110,9 +109,9 @@ const SCDescItem = styled.p`
   color:rgb(75, 75, 75);
 `
 const SCValorItem = styled.p`
-  font-size:50px;
-  font-weight:700;
-  color:rgb(58, 255, 40);
+  font-size:35px;
+  font-weight:400;
+  color:gray;
 `
 const SCValorQuantContainer = styled.div`
   width:auto;
@@ -128,7 +127,7 @@ const SCQuantidadeContainer = styled.div`
   display:flex;
   justify-content:space-between;
   align-items:center;
-  color:rgb(75, 75, 75);
+  color: gray;
   font-size:40px;
   gap:5px;
 `

@@ -8,7 +8,7 @@ export default function FiltroPorCategoria() {
 
     const navigate = useNavigate();
 
-    const { isLoged, setListadeProdutosPorCategoria } = useContext(LoginContext);
+    const { isLoged, setListadeProdutosPorCategoria, setProduto } = useContext(LoginContext);
 
     useEffect(() => {
         isLoged();
@@ -22,6 +22,7 @@ export default function FiltroPorCategoria() {
     
           setListadeProdutosPorCategoria(resposta.data);
           console.log(resposta.data, "listaAtual");
+          setProduto([]);
           navigate(`/produtos/categoria/${categoria}`);
     
         })
