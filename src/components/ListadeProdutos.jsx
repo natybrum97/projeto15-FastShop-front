@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function ListadeProdutos() {
   const navigate = useNavigate()
-  const {listadeProdutos, setListadeProdutos, isLoged } = useContext(LoginContext);
+  const {listadeProdutos, setListadeProdutos, isLoged, setProduto } = useContext(LoginContext);
 
   useEffect(() => {
     isLoged();
@@ -16,6 +16,7 @@ export default function ListadeProdutos() {
 
       setListadeProdutos(resposta.data);
       console.log(resposta.data, "lista");
+      setProduto([])
 
     })
 
