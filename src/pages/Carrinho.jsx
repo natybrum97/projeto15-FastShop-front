@@ -7,11 +7,72 @@ import { LoginContext } from "../contexts/LoginContext";
 
 export default function Carrinho() {
 
-  const { isLoged, getCarrinho } = useContext(LoginContext);
+  const navigate = useNavigate();
+
+  const { isLoged, getCarrinho, setGetCarrinho, setValorCarrinho } = useContext(LoginContext);
 
   useEffect(() => {
     isLoged();
   })
+
+  function atualizaValordoCarrinho(){
+
+    axios.get(`${import.meta.env.VITE_API_URL}/carrinho`)
+
+      .then((response) => {
+
+        const carrinhodecompras = response.data;
+        console.log(carrinhodecompras.length, "opaaaaaa");
+        setValorCarrinho(carrinhodecompras.length);
+        setGetCarrinho(response.data)
+
+      })
+
+      .catch((error) => {
+
+        console.error(error);
+
+      });
+
+    }
+
+  function deleteItem(produtoId){
+  
+    const confirmacao = window.confirm("Tem certeza de que deseja excluir?");
+  
+    if (confirmacao) {
+
+      axios.delete(`${import.meta.env.VITE_API_URL}/carrinho/${produtoId}`)
+
+        .then((response) => {
+
+          atualizaValordoCarrinho();
+          
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  };
+
+  function deleteTudo(){
+  
+    const confirmacao = window.confirm("Tem certeza de que deseja excluir?");
+  
+    if (confirmacao) {
+
+      axios.delete(`${import.meta.env.VITE_API_URL}/carrinho`)
+
+        .then((response) => {
+
+          atualizaValordoCarrinho();
+          
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  };
 
   return (
     <>
@@ -46,7 +107,7 @@ export default function Carrinho() {
                 <TextValor>{produto.valor}</TextValor>
                 <TextQuantidade>{produto.quantidade}</TextQuantidade>
                 <TextValorTotal>R$3000,00</TextValorTotal>
-                <ButtonExcluir>Excluir</ButtonExcluir>
+                <ButtonExcluir onClick={() => deleteItem(produto._id)}>Excluir</ButtonExcluir>
 
               </ListItemContainer>
 
@@ -59,7 +120,8 @@ export default function Carrinho() {
 
         <FinalizaCompra>
           <Total>Total: R$ 3000,00</Total>
-          <ButtonEsvaziar>Esvaziar Carrinho</ButtonEsvaziar>
+          <ButtonEsvaziar onClick={() => deleteTudo()}>Esvaziar Carrinho</ButtonEsvaziar>
+          <ButtonContinuarComprando onClick={() => navigate("/catalogo")}>Retorne ao Menu de Produtos</ButtonContinuarComprando>
           <ButtonConfirmar>Ir para Pagamento</ButtonConfirmar>
         </FinalizaCompra>
 
@@ -235,5 +297,9 @@ const ExcluirProduto = styled.h1`
 
 const ButtonEsvaziar = styled.button`
   width: 200px;
+  background-color:#f87b09;
+`;
+const ButtonContinuarComprando = styled.button`
+  width: 300px;
   background-color:#f87b09;
 `;
