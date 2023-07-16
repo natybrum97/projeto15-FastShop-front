@@ -25,7 +25,8 @@ export default function Login() {
       localStorage.setItem("token", resposta.data.token);
       console.log(localStorage.getItem("token"))
       localStorage.setItem("user", resposta.data.nome);
-
+      localStorage.setItem("userid", resposta.data._id);
+      console.log(resposta.data)
       console.log(resposta.data, "lista");
       navigate("/catalogo");
 
