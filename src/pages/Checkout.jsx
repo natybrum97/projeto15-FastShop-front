@@ -78,6 +78,7 @@ export default function Checkout() {
 
     promise.catch(erro => {
       console.log(erro);
+      alert(erro.response.data)
     });
   }
   return (
@@ -105,7 +106,7 @@ export default function Checkout() {
           <SCValorSpan>R$ {parcelas === "" ? "Parcelas inválidas": (totalNumerico/parcelas).toFixed(2).replace(".",",")}</SCValorSpan>
         </SCPagamentoInnerBox>
         <SCPagamentoInnerBox>
-          <SCHeaderSpan> Parcele em até 12x sem júros</SCHeaderSpan>
+          <SCHeaderSpan> Parcele em até 12x sem juros!</SCHeaderSpan>
           <input placeholder="Número do cartão" value={numeroCartao} onChange={(e)=>setNumeroCartao(e.target.value)}></input>
           <input placeholder="Número de parcelas" value={parcelas} onChange={(e)=>handleInput(e)}></input>
         </SCPagamentoInnerBox>
