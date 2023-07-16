@@ -31,7 +31,6 @@ export default function Carrinho() {
       .then((response) => {
 
         const carrinhodecompras = response.data;
-        console.log(carrinhodecompras.length, "opaaaaaa");
         setValorCarrinho(carrinhodecompras.length);
         setGetCarrinho(response.data)
 
@@ -131,7 +130,7 @@ export default function Carrinho() {
           <Total>Total: R$ {total}</Total>
           <ButtonEsvaziar onClick={() => deleteTudo()}>Esvaziar Carrinho</ButtonEsvaziar>
           <ButtonContinuarComprando onClick={() => navigate("/catalogo")}>Retorne ao Menu de Produtos</ButtonContinuarComprando>
-          <ButtonConfirmar onClick={()=>navigate("/checkout")}>Ir para Pagamento</ButtonConfirmar>
+          <ButtonConfirmar disabled={getCarrinho.length === 0} onClick={()=>navigate("/checkout")}>Ir para Pagamento</ButtonConfirmar>
         </FinalizaCompra>
 
       </ContainerGrande>
@@ -236,7 +235,8 @@ const ButtonExcluir = styled.button`
 const ButtonConfirmar = styled.button`
   width:200px;
   background-color:#f87b09;
- 
+  cursor:${(props)=> props.disabled? "not-allowed":"pointer"};
+  opacity:${(props) => props.disabled? "0.6": "1"};
 `;
 
 const FinalizaCompra = styled.div`
