@@ -52,6 +52,7 @@ const ListagemdeProdutos = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
+  justify-content:center;
   color: #000000;
   background-color: #CCCCCC;
   margin-top: 190px;
