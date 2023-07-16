@@ -17,8 +17,8 @@ const LogoFastShop = styled.h1`
     font-weight: 800;
     font-size: 70px;
     color: white;
-    margin-right:150px;
-
+    display:flex;
+    justify-content:center;
     span{
         color:#f87b09;
     }
