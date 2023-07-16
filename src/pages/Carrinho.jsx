@@ -9,13 +9,22 @@ export default function Carrinho() {
 
   const navigate = useNavigate();
 
-  const { isLoged, getCarrinho, setGetCarrinho, setValorCarrinho } = useContext(LoginContext);
+  const { isLoged, getCarrinho, setGetCarrinho, setValorCarrinho, total, setTotal } = useContext(LoginContext);
 
   useEffect(() => {
     isLoged();
-  })
 
-  function atualizaValordoCarrinho(){
+    let totalCompra = 0;
+
+    getCarrinho.forEach(produto => {
+      totalCompra += parseFloat(produto.valor*produto.quantidade);
+    });
+
+    const saldoFinal = Math.abs(totalCompra).toFixed(2).replace(".", ",");
+    setTotal(saldoFinal);
+  }, [getCarrinho]);
+
+  function atualizaValordoCarrinho() {
 
     axios.get(`${import.meta.env.VITE_API_URL}/carrinho`)
 
@@ -34,12 +43,12 @@ export default function Carrinho() {
 
       });
 
-    }
+  }
 
-  function deleteItem(produtoId){
-  
+  function deleteItem(produtoId) {
+
     const confirmacao = window.confirm("Tem certeza de que deseja excluir?");
-  
+
     if (confirmacao) {
 
       axios.delete(`${import.meta.env.VITE_API_URL}/carrinho/${produtoId}`)
@@ -47,7 +56,7 @@ export default function Carrinho() {
         .then((response) => {
 
           atualizaValordoCarrinho();
-          
+
         })
         .catch((error) => {
           console.error(error);
@@ -55,10 +64,10 @@ export default function Carrinho() {
     }
   };
 
-  function deleteTudo(){
-  
+  function deleteTudo() {
+
     const confirmacao = window.confirm("Tem certeza de que deseja excluir?");
-  
+
     if (confirmacao) {
 
       axios.delete(`${import.meta.env.VITE_API_URL}/carrinho`)
@@ -66,7 +75,7 @@ export default function Carrinho() {
         .then((response) => {
 
           atualizaValordoCarrinho();
-          
+
         })
         .catch((error) => {
           console.error(error);
@@ -104,9 +113,9 @@ export default function Carrinho() {
 
                 <ImageProduct src={produto.url} alt="url" />
                 <TextName>{produto.nome}</TextName>
-                <TextValor>{produto.valor}</TextValor>
+                <TextValor>{produto.valor.replace(".", ",")}</TextValor>
                 <TextQuantidade>{produto.quantidade}</TextQuantidade>
-                <TextValorTotal>R$3000,00</TextValorTotal>
+                <TextValorTotal>R$ {(produto.quantidade * parseFloat(produto.valor)).toFixed(2).replace(".", ",")}</TextValorTotal>
                 <ButtonExcluir onClick={() => deleteItem(produto._id)}>Excluir</ButtonExcluir>
 
               </ListItemContainer>
@@ -119,7 +128,7 @@ export default function Carrinho() {
         </ContainerMenor>
 
         <FinalizaCompra>
-          <Total>Total: R$ 3000,00</Total>
+          <Total>Total: R$ {total}</Total>
           <ButtonEsvaziar onClick={() => deleteTudo()}>Esvaziar Carrinho</ButtonEsvaziar>
           <ButtonContinuarComprando onClick={() => navigate("/catalogo")}>Retorne ao Menu de Produtos</ButtonContinuarComprando>
           <ButtonConfirmar>Ir para Pagamento</ButtonConfirmar>
@@ -209,7 +218,7 @@ const TextQuantidade = styled.h1`
  
 `;
 const TextValorTotal = styled.h1`
-  width:130px;
+  width:150px;
   display:flex;
   justify-content:center;
   align-items:center;
@@ -281,7 +290,7 @@ const QuantidadeProduto = styled.h1`
  
 `;
 const ValorProduto = styled.h1`
-  width:130px;
+  width:150px;
   display:flex;
   justify-content:center;
   align-items:center;
