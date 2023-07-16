@@ -60,7 +60,7 @@ export default function Cabeçalho() {
 
             <MessageUser>Bem-vindo(a) {localStorage.getItem("user")}! </MessageUser>
 
-            <LogoFastShop>Fast<span>Shop</span></LogoFastShop>
+            <LogoFastShop onClick={()=>navigate("/catalogo")}>Fast<span>Shop</span></LogoFastShop>
 
             <ContainerCarrinho>
 

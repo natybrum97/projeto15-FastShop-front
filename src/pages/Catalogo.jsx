@@ -36,4 +36,5 @@ const ContainerGrandeProdutos = styled.div`
   flex-direction: column;
   align-items: center;
   background-color: #CCCCCC;
+  justify-content:center;
 `

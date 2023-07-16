@@ -15,13 +15,13 @@ export default function Item() {
 
   console.log(produto, "aqui");
   
-  let [quantidade, setQuantidade] = useState(0);
+  let [quantidade, setQuantidade] = useState(1);
 
   function menosQuant(){
 
     const novaQuantidade = quantidade - 1;
 
-    if(novaQuantidade >= 0)setQuantidade(novaQuantidade);
+    if(novaQuantidade >= 1)setQuantidade(novaQuantidade);
 
   }
   function maisQuant(){

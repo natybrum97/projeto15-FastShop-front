@@ -131,7 +131,7 @@ export default function Carrinho() {
           <Total>Total: R$ {total}</Total>
           <ButtonEsvaziar onClick={() => deleteTudo()}>Esvaziar Carrinho</ButtonEsvaziar>
           <ButtonContinuarComprando onClick={() => navigate("/catalogo")}>Retorne ao Menu de Produtos</ButtonContinuarComprando>
-          <ButtonConfirmar>Ir para Pagamento</ButtonConfirmar>
+          <ButtonConfirmar onClick={()=>navigate("/checkout")}>Ir para Pagamento</ButtonConfirmar>
         </FinalizaCompra>
 
       </ContainerGrande>
