@@ -233,7 +233,7 @@ const ButtonExcluir = styled.button`
  
 `;
 const ButtonConfirmar = styled.button`
-  width:200px;
+  width:300px;
   background-color:#f87b09;
   cursor:${(props)=> props.disabled? "not-allowed":"pointer"};
   opacity:${(props) => props.disabled? "0.6": "1"};

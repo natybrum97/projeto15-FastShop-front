@@ -10,6 +10,7 @@ import { EndereçoProvider } from "./contexts/EndereçoContext.jsx";
 import CatalogoPorCategoria from "./pages/CatalogoPorCategoria";
 import Item from "./pages/Item";
 import Endereço from "./pages/Endereço";
+import Confirmacao from "./pages/Confirmacao"
 
 export default function App() {
 
@@ -28,6 +29,7 @@ export default function App() {
             <Route path="/carrinho" element={<Carrinho />} />
             <Route path="/endereço" element={<Endereço />} />
             <Route path="/checkout" element={<Checkout />} />
+            <Route path="/confirmacao" element={<Confirmacao />} />
           </Routes>
         </LoginProvider>
         </EndereçoProvider>
