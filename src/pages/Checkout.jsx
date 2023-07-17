@@ -14,6 +14,52 @@ export default function Checkout() {
   const [parcelas, setParcelas] = useState("1")
   const [totalNumerico, setTotalNumerico] = useState(0)
   const [numeroCartao, setNumeroCartao] = useState("")
+  const [numParcelas, setNumParcelas] = useState(1);
+  const [cvv, setCVV] = useState('');
+  const [expirationDate, setExpirationDate] = useState('');
+  const [nomeCartao, setNomeCartao] = useState("");
+
+
+  const handleNumParcelasChange = (e) => {
+    setNumParcelas(parseInt(e.target.value, 10));
+  };
+
+  const calcularParcelas = (parcela) => {
+    if (parcela === 1) {
+      return parseInt(total).toFixed(2);
+    } else {
+      const valorParcela = parseInt(total) / parcela;
+      return valorParcela.toFixed(2);
+    }
+  };
+
+  const formatCVV = (cvv) => {
+    // Remove espaços em branco e caracteres não numéricos
+    const cleanedCVV = cvv.replace(/\D/g, '');
+
+    // Limita o CVV a três dígitos
+    const formattedCVV = cleanedCVV.slice(0, 3);
+
+    return formattedCVV;
+  };
+
+  const formatExpirationDate = (expirationDate) => {
+    // Remove espaços em branco e caracteres não numéricos
+    const cleanedDate = expirationDate.replace(/\D/g, '');
+
+    // Separa os dígitos em mês e ano
+    const month = cleanedDate.slice(0, 2);
+    const year = cleanedDate.slice(2, 4);
+
+    // Formata a data no formato MM/AA
+    const formattedDate = `${month}/${year}`;
+
+    return formattedDate;
+  };
+
+  const handleExpirationDateChange = (e) => {
+    setExpirationDate(formatExpirationDate(e.target.value));
+  };
 
   useEffect(() => {
     isLoged();
@@ -99,10 +145,6 @@ export default function Checkout() {
 
       <Logo />
 
-      <SCPagamentoInnerBox2>
-        <SCHeaderSpan2> Total R${total} </SCHeaderSpan2>
-      </SCPagamentoInnerBox2>
-
       <SCPagamentoInnerBox3>
         <SCHeaderSpan> Forma de pagamento</SCHeaderSpan>
         <SCButtonContainer>
@@ -118,14 +160,32 @@ export default function Checkout() {
 
           <SCPagamentoInnerBox4>
             <SCHeaderSpan3> Parcele em até 12x sem juros!</SCHeaderSpan3>
+            <input placeholder="Nome no Cartão" type="text" id="nomecartao" value={nomeCartao} onChange={(e) => setNomeCartao(e.target.value)} />
             <input placeholder="Número do cartão" value={numeroCartao} onChange={(e) => setNumeroCartao(e.target.value)}></input>
-            <input placeholder="Número de parcelas" value={parcelas} onChange={(e) => handleInput(e)}></input>
+            {/* <input placeholder="Número de parcelas" value={parcelas} onChange={(e) => handleInput(e)}></input>*/}
+            <select id="opcaoParcelamento" value={numParcelas} onChange={handleNumParcelasChange}>
+              {[...Array(12).keys()].map((parcela) => (
+                <option key={parcela + 1} value={parcela + 1}>
+                  {parcela + 1}x R${calcularParcelas(parcela + 1).replace(".", ",")}
+                </option>
+              ))}
+            </select>
+            <input placeholder="CVV" type="text" value={formatCVV(cvv)} onChange={(e) => setCVV(e.target.value)} maxLength="3" />
+            <input
+        type="text"
+        id="expirationDate"
+        value={expirationDate}
+        onChange={handleExpirationDateChange}
+        maxLength="5"
+        placeholder="MM/AA"
+      />
+
           </SCPagamentoInnerBox4>
 
-          <SCPagamentoInnerBox4>
+          {/* <SCPagamentoInnerBox4>
             <SCHeaderSpan> Valor das parcelas: </SCHeaderSpan>
             <SCValorSpan>R$ {parcelas === "" ? "Parcelas inválidas" : (totalNumerico / parcelas).toFixed(2).replace(".", ",")}</SCValorSpan>
-          </SCPagamentoInnerBox4>
+              </SCPagamentoInnerBox4> */}
 
         </SCPagamentoContainer>
       }
@@ -158,11 +218,23 @@ const SCPagamentoInnerBox4 = styled.div`
   flex-direction:column;
   align-items:center;
   justify-content:flex-start;
+
+  select{
+    font-size: 20px;
+        width: calc(100% - 167px);
+        border-radius: 5px;
+        outline: none;
+        border: 1px solid #ccc;
+        padding: 15px;
+        margin: 1px;
+        color:gray;
+  }
 `
 const SCPagamentoInnerBox3 = styled.div`
   margin-top: 50px;
   width:100%;
-  height: 100%;;
+  height: 100%;
+  margin-top:100px;
   display:flex;
   flex-direction:column;
   align-items:center;
@@ -226,6 +298,7 @@ const SCBaixarBoletoSpan = styled.span`
   font-size:50px;
   font-weight:700;
   color:lightgray;
+  margin-top:50px;
 `
 const SCFinalizarButon = styled.button`
   display:flex;
