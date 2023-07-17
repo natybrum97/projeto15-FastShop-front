@@ -128,7 +128,7 @@ export default function Carrinho() {
 
         <FinalizaCompra>
           <Total>Total: R$ {total}</Total>
-          <ButtonEsvaziar onClick={() => deleteTudo()}>Esvaziar Carrinho</ButtonEsvaziar>
+          <ButtonEsvaziar disabled={getCarrinho.length === 0} onClick={() => deleteTudo()}>Esvaziar Carrinho</ButtonEsvaziar>
           <ButtonContinuarComprando onClick={() => navigate("/catalogo")}>Retorne ao Menu de Produtos</ButtonContinuarComprando>
           <ButtonConfirmar disabled={getCarrinho.length === 0} onClick={()=>navigate("/endereço")}>Ir para Cadastro de Endereço</ButtonConfirmar>
         </FinalizaCompra>
@@ -307,6 +307,8 @@ const ExcluirProduto = styled.h1`
 const ButtonEsvaziar = styled.button`
   width: 200px;
   background-color:#f87b09;
+  cursor:${(props)=> props.disabled? "not-allowed":"pointer"};
+  opacity:${(props) => props.disabled? "0.6": "1"};
 `;
 const ButtonContinuarComprando = styled.button`
   width: 300px;

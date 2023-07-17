@@ -10,6 +10,7 @@ export default function Checkout() {
   const navigate = useNavigate()
   const { total, setTotal, getCarrinho, setGetCarrinho, isLoged, setValorCarrinho } = useContext(LoginContext)
   const { setnomeCompleto, setTelefone, setCep, setRua, setNumeroCasa, setState, setCidade, setBairro, setCPF } = useContext(EndereçoContext);
+  const {nomeCompleto,telefone, cep, rua, numeroCasa, state, cidade, bairro, cpf} = useContext(EndereçoContext)
   const [payMethod, setPayMethod] = useState("Boleto")
   const [parcelas, setParcelas] = useState("1")
   const [totalNumerico, setTotalNumerico] = useState(0)
@@ -53,7 +54,7 @@ export default function Checkout() {
 
     // Formata a data no formato MM/AA
     const formattedDate = `${month}/${year}`;
-
+    console.log(formattedDate)
     return formattedDate;
   };
 
@@ -82,16 +83,6 @@ export default function Checkout() {
 
   }, []);
 
-  function handleInput(e) {
-    const newValue = e.target.value
-    const parsedValue = parseInt(newValue)
-    console.log(newValue, parsedValue, parcelas)
-    if (newValue === "") return setParcelas("")
-    if (isNaN(parsedValue)) return
-    if (newValue > 12) return setParcelas(12)
-    setParcelas(parsedValue)
-  }
-
   function setBoleto() {
     setPayMethod("Boleto");
     setParcelas("1");
@@ -106,9 +97,18 @@ export default function Checkout() {
       userid,
       valor: totalNumerico,
       parcelas,
-      tipo: payMethod
+      tipo: payMethod,
+      nomeCompleto,
+      telefone,
+      cep,
+      rua,
+      numeroCasa,
+      state,
+      cidade,
+      bairro,
+      cpf:cpf.replaceAll(".","").replace("-","")
     }
-    if (payMethod !== "Boleto") postObj = { ...postObj, ccnumber: numeroCartao }
+    if (payMethod !== "Boleto") postObj = { ...postObj, ccnumber: numeroCartao, cvv, expirationDate, nomeCartao}
     console.log(postObj)
 
     const promise = axios.post(`${import.meta.env.VITE_API_URL}/compra`, postObj);
@@ -157,12 +157,11 @@ export default function Checkout() {
         <SCBaixarBoletoSpan onClick={() => alert("Iniciando o download, em caso de problemas clique novamente no link")}>Clique aqui para baixar seu Boleto</SCBaixarBoletoSpan>
         :
         <SCPagamentoContainer>
-
+          
           <SCPagamentoInnerBox4>
             <SCHeaderSpan3> Parcele em até 12x sem juros!</SCHeaderSpan3>
-            <input placeholder="Nome no Cartão" type="text" id="nomecartao" value={nomeCartao} onChange={(e) => setNomeCartao(e.target.value)} />
-            <input placeholder="Número do cartão" value={numeroCartao} onChange={(e) => setNumeroCartao(e.target.value)}></input>
-            {/* <input placeholder="Número de parcelas" value={parcelas} onChange={(e) => handleInput(e)}></input>*/}
+            <input required placeholder="Nome no Cartão" type="text" id="nomecartao" value={nomeCartao} onChange={(e) => setNomeCartao(e.target.value)} />
+            <input required placeholder="Número do cartão" value={numeroCartao} onChange={(e) => setNumeroCartao(e.target.value)}></input>
             <select id="opcaoParcelamento" value={numParcelas} onChange={handleNumParcelasChange}>
               {[...Array(12).keys()].map((parcela) => (
                 <option key={parcela + 1} value={parcela + 1}>
@@ -170,8 +169,8 @@ export default function Checkout() {
                 </option>
               ))}
             </select>
-            <input placeholder="CVV" type="text" value={formatCVV(cvv)} onChange={(e) => setCVV(e.target.value)} maxLength="3" />
-            <input
+            <input required placeholder="CVV" type="text" value={formatCVV(cvv)} onChange={(e) => setCVV(e.target.value)} maxLength="3" />
+            <input required
         type="text"
         id="expirationDate"
         value={expirationDate}
@@ -179,18 +178,13 @@ export default function Checkout() {
         maxLength="5"
         placeholder="MM/AA"
       />
-
           </SCPagamentoInnerBox4>
-
-          {/* <SCPagamentoInnerBox4>
-            <SCHeaderSpan> Valor das parcelas: </SCHeaderSpan>
-            <SCValorSpan>R$ {parcelas === "" ? "Parcelas inválidas" : (totalNumerico / parcelas).toFixed(2).replace(".", ",")}</SCValorSpan>
-              </SCPagamentoInnerBox4> */}
-
         </SCPagamentoContainer>
       }
-      <SCFinalizarButon onClick={finalizarCompra} disabled={parcelas === "" || (numeroCartao === "" && payMethod !== "Boleto")}>Finalizar compra</SCFinalizarButon>
-
+      <SCButtonContainer>
+        <SCFinalizarButon onClick={finalizarCompra} disabled={parcelas === "" || (numeroCartao === "" || cvv==="" || expirationDate==="" || nomeCartao==="" && payMethod !== "Boleto")}>Finalizar compra</SCFinalizarButon>
+        <SCFinalizarButon onClick={()=>navigate("/endereço")} >Alterar endereço</SCFinalizarButon>
+      </SCButtonContainer>
     </SCcheckoutPage>
   )
 }
