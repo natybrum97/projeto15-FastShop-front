@@ -3,6 +3,7 @@ import FastShopLogo from "../components/FastShopLogo";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { EndereçoContext } from "../contexts/EndereçoContext";
+import Cabeçalho from "../components/Cabeçalho";
 
 export default function Endereço() {
 
@@ -74,7 +75,7 @@ export default function Endereço() {
         <SingUpContainer>
             <form onSubmit={enviarInfos}>
 
-                <FastShopLogo />
+                <Cabeçalho/>
 
                 <Input2 placeholder="Nome" type="text" id="nome" value={nomeCompleto} onChange={(e) => setnomeCompleto(e.target.value)} required />
                 <input placeholder="Telefone" type="tel" id="telefone" value={telefone} onChange={(e) => setTelefone(e.target.value)} required />
