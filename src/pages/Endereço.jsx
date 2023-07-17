@@ -1,11 +1,10 @@
-import { useState } from "react";
 import styled from "styled-components";
 import FastShopLogo from "../components/FastShopLogo";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { EndereçoContext } from "../contexts/EndereçoContext";
 
-export default function DeliveryAddressForm() {
+export default function Endereço() {
 
     const { nomeCompleto, setnomeCompleto, telefone, setTelefone, cep, setCep, rua, setRua, numeroCasa, setNumeroCasa, state, setState, cidade, setCidade, bairro, setBairro, cpf, setCPF } = useContext(EndereçoContext);
 

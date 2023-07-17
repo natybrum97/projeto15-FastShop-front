@@ -4,10 +4,12 @@ import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import Cabeçalho from "../components/Cabeçalho";
 import { LoginContext } from "../contexts/LoginContext";
+import { EndereçoContext } from "../contexts/EndereçoContext";
 
 export default function Checkout() {
   const navigate = useNavigate()
   const {total,setTotal,getCarrinho,setGetCarrinho,isLoged,setValorCarrinho} = useContext(LoginContext)
+  const { setnomeCompleto, setTelefone, setCep, setRua, setNumeroCasa, setState, setCidade, setBairro, setCPF } = useContext(EndereçoContext);
   const [payMethod, setPayMethod] = useState("Boleto")
   const [parcelas, setParcelas] = useState("1")
   const [totalNumerico, setTotalNumerico] = useState(0)
@@ -68,12 +70,23 @@ export default function Checkout() {
       axios.delete(`${import.meta.env.VITE_API_URL}/carrinho`)
         .then((response) => {
           setValorCarrinho(0);
+          navigate("/confirmacao");
         })
         .catch((error) => {
           console.error(error);
+          alert("Houve um problema com seu pagamento, tente novamente!");
         });
-      alert(resposta.data)
-      navigate("/catalogo")
+
+        setnomeCompleto("");
+        setTelefone("");
+        setCep("");
+        setRua("");
+        setNumeroCasa("");
+        setState("");
+        setCidade("");
+        setBairro("");
+        setCPF("");
+      
     });
 
     promise.catch(erro => {
