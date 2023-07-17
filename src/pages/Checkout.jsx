@@ -182,7 +182,7 @@ export default function Checkout() {
         </SCPagamentoContainer>
       }
       <SCButtonContainer>
-        <SCFinalizarButon onClick={finalizarCompra} disabled={parcelas === "" || (numeroCartao === "" || cvv==="" || expirationDate==="" || nomeCartao==="" && payMethod !== "Boleto")}>Finalizar compra</SCFinalizarButon>
+        <SCFinalizarButon onClick={finalizarCompra} disabled={payMethod==="Cartão de Crédito" &&(parcelas === "" || numeroCartao === "" || cvv==="" || expirationDate==="" || nomeCartao==="")}>Finalizar compra</SCFinalizarButon>
         <SCFinalizarButon onClick={()=>navigate("/endereço")} >Alterar endereço</SCFinalizarButon>
       </SCButtonContainer>
     </SCcheckoutPage>
